@@ -10,6 +10,5 @@ INSERT INTO unit_of_measure (description) VALUES ('Ounce');
 INSERT INTO unit_of_measure (description) VALUES ('Dash');
 INSERT INTO unit_of_measure (description) VALUES ('Clove');
 INSERT INTO unit_of_measure (description) VALUES ('Item');
-
-
-
+INSERT INTO unit_of_measure (description) VALUES ('Each');
+INSERT INTO unit_of_measure (description) VALUES ('Pint');
