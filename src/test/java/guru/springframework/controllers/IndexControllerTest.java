@@ -35,17 +35,11 @@ public class IndexControllerTest {
     }
 
     @Test
-    public void getIndexPage() {
-        Recipe recipe = new Recipe();
-        HashSet receipesData = new HashSet();
-        receipesData.add(recipe);
-
-        when(recipeService.getRecipes()).thenReturn(receipesData);
-
+    public void getIndexPage() throws Exception {
         String template = indexController.getIndexPage(model);
 
         assertEquals(template, "index");
         verify(recipeService, times(1)).getRecipes();
-        verify(model, times(2)).addAttribute("1", new Object());
+        verify(model, times(1)).addAttribute(eq("recipes"), anySet());
     }
 }
