@@ -10,7 +10,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import javax.sound.midi.Receiver;
 import java.util.HashSet;
@@ -18,10 +22,12 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 public class IndexControllerTest {
 
-    IndexController indexController;
+    IndexController controller;
 
     @Mock
     RecipeService recipeService;
@@ -33,7 +39,17 @@ public class IndexControllerTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        this.indexController = new IndexController(this.recipeService);
+        this.controller = new IndexController(this.recipeService);
+    }
+
+    @Test
+    public void testMockMVC() throws Exception {
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"));
+
     }
 
     @Test
@@ -53,7 +69,7 @@ public class IndexControllerTest {
         ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
 
         // when
-        String template = indexController.getIndexPage(model);
+        String template = controller.getIndexPage(model);
 
         // then
         assertEquals(template, "index");
