@@ -190,7 +190,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         tacosRecipe.setNotes(tacosNotes);
 
-        tacosRecipe.getIngredients().add(new Ingredient("Acho Chili Powder", new BigDecimal(2), tableSpoonUom));
+        tacosRecipe.getIngredients().add(new Ingredient("Acho Chili Powder", new BigDecimal(2), tableSpoonUom, tacosRecipe));
         tacosRecipe.getIngredients().add(new Ingredient("Drilled Oregano", new BigDecimal(1), teaSpoonUom));
         tacosRecipe.getIngredients().add(new Ingredient("Dried Cumin", new BigDecimal(1), teaSpoonUom));
         tacosRecipe.getIngredients().add(new Ingredient("Sugar", new BigDecimal(1), teaSpoonUom));
