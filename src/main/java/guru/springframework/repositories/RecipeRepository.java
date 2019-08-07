@@ -3,9 +3,13 @@ package guru.springframework.repositories;
 import guru.springframework.domain.Recipe;
 import org.springframework.data.repository.CrudRepository;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
 import java.util.Set;
 
 public interface RecipeRepository extends CrudRepository<Recipe, Long> {
 
     Set<Recipe> findAll();
+
+    Optional<Recipe> findById(Long id);
 }
