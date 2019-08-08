@@ -24,6 +24,7 @@
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
+                        <!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
                         <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
                     </div>
                     <div class="panel-body">
@@ -32,15 +33,14 @@
                                 <h5>Categories:</h5>
                             </div>
                             <div class="col-md-9">
-                                <ul th:remove="all">
-                                    <li>cat one</li>
-                                    <li>cat two</li>
-                                    <li>cat three</li>
+                                <ul>
+                                    <li th:remove="all">cat one</li>
+                                    <li th:remove="all">cat two</li>
+                                    <li th:remove="all">>cat three</li>
+                                    <!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
+                                    <li th:each="category : ${recipe.categories}" th:text="${(category.description)}">cat four</li>
                                 </ul>
 
-                                <ul th:each="category : ${recipe.categories}">
-                                    <li th:text="${category.description}">cat four</li>
-                                </ul>
                             </div>
                         </div>
                         <div class="row">
@@ -48,13 +48,13 @@
                                 <h5>Prep Time:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.prepTime} + ' min'">30 min</p>
+                                <p th:text="${(recipe.prepTime + ' min')}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Difficulty:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.difficulty.name()}">Easy</p>
+                                <p th:text="${(recipe.difficulty)}">Easy</p>
                             </div>
                         </div>
                         <div class="row">
@@ -62,13 +62,13 @@
                                 <h5>Cooktime:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.cookTime} + ' min'">30 min</p>
+                                <p th:text="${(recipe.cookTime.toString() + ' min')}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Servings:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${ recipe.servings == null ? '' : recipe.servings.toString() }">4</p>
+                                <p th:text="${recipe.servings}">4</p>
                             </div>
                         </div>
                         <div class="row">
@@ -76,13 +76,13 @@
                                 <h5>Source:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.source}">30 min</p>
+                                <p th:text="${(recipe.source)}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>URL:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.url}">http://www.example.com</p>
+                                <p th:text="${(recipe.url)}">http://www.example.com</p>
                             </div>
                         </div>
                     </div>
@@ -94,13 +94,17 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <ul th:remove="all">
-                                    <li>1 Cup of milk</li>
-                                    <li>1 Teaspoon of chocolate</li>
-                                    <li>1 Teaspoon of Sugar</li>
+                                <ul>
+                                    <li th:remove="all">1 Cup of milk</li>
+                                    <li th:remove="all">1 Teaspoon of chocolate</li>
+                                    <li th:remove="all">1 Teaspoon of Sugar</li>
+                                    <li th:each="ingredient : ${recipe.ingredients}"
+                                        th:text="${(ingredient.getAmount().toString() + ' '
+                                        + ingredient.uom.getDescription() + ' '
+                                        + ingredient.getDescription())}">ingredient name</li>
                                 </ul>
-                                <ul th:each="ingredient : ${recipe.ingredients}">
-                                    <li th:text="${ingredient.description}">ingredient name</li>
+                                <ul >
+
                                 </ul>
                             </div>
                         </div>
