@@ -1,7 +1,8 @@
 package guru.springframework.controllers;
 
+import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.RecipeCommand;
-import guru.springframework.domain.Recipe;
+import guru.springframework.services.IngredientService;
 import guru.springframework.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,11 @@ public class IngredientController {
 
     public final RecipeService recipeService;
 
-    public IngredientController(RecipeService recipeService) {
+    public final IngredientService ingredientService;
+
+    public IngredientController(RecipeService recipeService, IngredientService ingredientService) {
         this.recipeService = recipeService;
+        this.ingredientService = ingredientService;
     }
 
     @GetMapping
@@ -31,5 +35,15 @@ public class IngredientController {
         model.addAttribute("recipe", recipeCommand);
 
         return "recipe/ingredient/list";
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/show")
+    public String showRecipeIngredient(@PathVariable String recipeId, @PathVariable String id, Model model) {
+        IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId(
+                Long.valueOf(recipeId),
+                Long.valueOf(id));
+        model.addAttribute("ingredient", ingredientCommand);
+        return "recipe/ingredient/show";
     }
 }
