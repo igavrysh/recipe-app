@@ -105,11 +105,11 @@
                                     <ul>
                                         <li th:remove="all">1 Cup of milk</li>
                                         <li th:remove="all">1 Teaspoon of chocolate</li>
-                                        <!--/*@thymesVar id="ingredient" type="guru.springframework.domain.Ingredient"*/-->
-                                        <!--/*@thymesVar id="uom" type="guru.springframework.domain.UnitOfMeasure"*/-->
+                                        <!--/*@thymesVar id="ingredient" type="guru.springframework.commands.IngredientCommand"*/-->
+                                        <!--/*@thymesVar id="uom" type="guru.springframework.commands.UnitOfMeasureCommand"*/-->
                                         <li th:each="ingredient : ${recipe.ingredients}"
                                             th:text="${(ingredient.getAmount() +
-                                        ' ' + ingredient.uom == null ? 'null' : 'not null' +
+                                        ' ' + ingredient.getUom().getDescription() +
                                         ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
                                         </li>
                                     </ul>
