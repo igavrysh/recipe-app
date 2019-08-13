@@ -5,11 +5,13 @@ import guru.springframework.converters.IngredientCommandToIngredient;
 import guru.springframework.converters.IngredientToIngredientCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
+import guru.springframework.repositories.IngredientRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Slf4j
@@ -20,15 +22,18 @@ public class IngredientServiceImpl implements IngredientService {
     private final IngredientCommandToIngredient ingredientCommandToIngredient;
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
+    private final IngredientRepository ingredientRepository;
 
     public IngredientServiceImpl(IngredientToIngredientCommand ingredientToIngredientCommand,
                                  IngredientCommandToIngredient ingredientCommandToIngredient,
                                  RecipeRepository recipeRepository,
-                                 UnitOfMeasureRepository unitOfMeasureRepository) {
+                                 UnitOfMeasureRepository unitOfMeasureRepository,
+                                 IngredientRepository ingredientRepository) {
         this.ingredientToIngredientCommand = ingredientToIngredientCommand;
         this.ingredientCommandToIngredient = ingredientCommandToIngredient;
         this.recipeRepository = recipeRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @Override
@@ -91,7 +96,6 @@ public class IngredientServiceImpl implements IngredientService {
 
         Recipe savedRecipe = recipeRepository.save(recipe);
 
-
         Optional<Ingredient> savedIngredientOptional = savedRecipe
                 .getIngredients()
                 .stream()
@@ -111,5 +115,11 @@ public class IngredientServiceImpl implements IngredientService {
         }
 
         return  ingredientToIngredientCommand.convert(savedIngredientOptional.get());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        ingredientRepository.deleteById(id);
+        //Optional<Ingredient> ingredientToDelete
     }
 }
