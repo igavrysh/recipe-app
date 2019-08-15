@@ -56,8 +56,9 @@
                             </div>
                             <div class="cold-md-6">
                                 <img src="../../static/images/default-rest-pic.jpg"
-                                     th:src="@{/images/plate.png}"
-                                     width="200"  height="200" >
+                                    th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}"
+                                >
+
                             </div>
                         </div>
                         <div class="row">
