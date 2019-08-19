@@ -2,6 +2,7 @@ package guru.springframework.controllers;
 
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.exceptions.NotFoundException;
+import guru.springframework.exceptions.NumberFrmtException;
 import guru.springframework.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,8 @@ public class RecipeController {
 
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model) {
-        model.addAttribute("recipe", recipeService.findById(new Long(id)));
+        Long recipeId = new Long(id);
+        model.addAttribute("recipe", recipeService.findById(recipeId));
         return "recipe/show";
     }
 
@@ -63,7 +65,21 @@ public class RecipeController {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("404error");
-        modelAndView.addObject("exception", exception);;
+        modelAndView.addObject("exception", exception);
+
+        return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleNumberFormatException(Exception exception) {
+        log.error("Number format exception");
+        log.error(exception.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("400error");
+        modelAndView.addObject("exception", exception);
 
         return modelAndView;
     }
