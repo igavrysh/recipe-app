@@ -67,10 +67,7 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testGetRecipeByIncorrectFormatId() throws Exception {
-        Recipe recipe = new Recipe();
-        when(recipeService.findById(anyLong())).thenReturn(recipe);
-
+    public void testGetRecipeNumberFormatException() throws Exception {
         mockMvc.perform(get("/recipe/abc/show"))
                 .andExpect(status().isBadRequest())
                 .andExpect(view().name("400error"));
