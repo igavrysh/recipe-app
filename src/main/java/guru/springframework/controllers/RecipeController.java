@@ -58,6 +58,7 @@ public class RecipeController {
     public ModelAndView handleNotFound(Exception exception) {
 
         log.error("Handling not found exception");
+        log.error(exception.getMessage());
 
         ModelAndView modelAndView = new ModelAndView();
 
