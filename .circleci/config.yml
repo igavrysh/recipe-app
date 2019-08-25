@@ -43,8 +43,9 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # run tests! and gen code coverage
-      - run: mvn test -e -X  cobertura:cobertura
+      #- run: mvn test -e -X  cobertura:cobertura
       #- run: mvn integration-test
+      - run: mvn test -e -X
 
       - store_test_results:
           path: target/surefire-reports
