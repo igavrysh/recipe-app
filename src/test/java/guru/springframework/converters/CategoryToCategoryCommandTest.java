@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-class CategoryToCategoryCommandTest {
+public class CategoryToCategoryCommandTest {
 
     public static final Long ID_VALUE = new Long(1L);
     public static final String DESCRIPTION = "descript";
@@ -29,7 +29,7 @@ class CategoryToCategoryCommandTest {
     }
 
     @Test
-    void convert() throws Exception {
+    public void convert() throws Exception {
         // given
         Category category = new Category();
         category.setId(ID_VALUE);
